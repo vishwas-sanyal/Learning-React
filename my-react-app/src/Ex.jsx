@@ -1,33 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function Example() {
 
-    const [task, setTask] = useState([]);
-    const [newTask, setNewTask] = useState("");
+    const [time, seTime] = useState(new Date());
 
-    function addTask() {
-        const new_Task = { task: newTask, };
-        setTask(t => [...t, new_Task]);
-        setNewTask("");
-    }
-    function removeTask(index) {
-        setTask(t => t.filter((_, i) => i !== index));
-    }
-    function set_Task(event) {
-        if (event.target.value === "") {
-            alert("Enter a Task first");
-        } else {
-            setNewTask(event.target.value);
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            seTime(new Date())
+        }, 1000);
+        return () => {
+            clearInterval(intervalId);
         }
+    }, []);
+
+    function formatTime() {
+        let hours = time.getHours();
+        const minutes = time.getMinutes();
+        const seconds = time.getSeconds();
+        const meridiem = hours >= 12 ? "PM" : "AM";
+
+        hours = hours % 12 || 12;
+
+        return `${addZero(hours)}:${addZero(minutes)}:${addZero(seconds)} ${meridiem}`;
     }
 
-    return (<div className="toDoList">
-        <h1>To-Do List</h1>
-        <ul>{task.map((task, index) => <li key={index} className="list">
-            {task.task} <button onClick={() => removeTask(index)}>❌</button>
-        </li>)}</ul>
-        <input type="text" value={newTask} placeholder="Enter a Task" onChange={set_Task} />
-        <button onClick={addTask} className="addTask"> + </button>
+    function addZero(number) {
+        return (number < 10 ? "0" : "") + number;
+    }
+
+    return (<div className="clock-container">
+        <div className="clock">
+            <span>{formatTime()}</span>
+        </div>
     </div>);
 }
 
