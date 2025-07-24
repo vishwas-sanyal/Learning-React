@@ -1,37 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, createContext } from "react";
+import ExampleB from "./ExB";
+
+export const UserContext = createContext();
 
 function Example() {
 
-    const [time, seTime] = useState(new Date());
+    const [user, setUser] = useState("Vishwas");
 
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            seTime(new Date())
-        }, 1000);
-        return () => {
-            clearInterval(intervalId);
-        }
-    }, []);
-
-    function formatTime() {
-        let hours = time.getHours();
-        const minutes = time.getMinutes();
-        const seconds = time.getSeconds();
-        const meridiem = hours >= 12 ? "PM" : "AM";
-
-        hours = hours % 12 || 12;
-
-        return `${addZero(hours)}:${addZero(minutes)}:${addZero(seconds)} ${meridiem}`;
-    }
-
-    function addZero(number) {
-        return (number < 10 ? "0" : "") + number;
-    }
-
-    return (<div className="clock-container">
-        <div className="clock">
-            <span>{formatTime()}</span>
-        </div>
+    return (<div className="box">
+        <h1>BOX A</h1>
+        <h2>{`Hello ${user}`}</h2>
+        <UserContext.Provider value={user}>
+            <ExampleB user={user} />
+        </UserContext.Provider>
     </div>);
 }
 
