@@ -1,4 +1,44 @@
-.box {
-    border: 3px solid black;
-    padding: 10px;
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 18vw;
+    background-color: crimson;
+}
+
+.stopwatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 5px solid black;
+    border-radius: 50px;
+    background-color: rgb(255, 73, 73);
+    padding: 30px;
+}
+
+.display {
+    font-size: 5rem;
+    font-family: monospace;
+    font-weight: bold;
+    color: rgb(27, 27, 27);
+    /* box-shadow: 2px 2px 2px black; */
+    margin-bottom: 25px;
+}
+
+.controls button {
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    margin: 5px;
+    min-width: 125px;
+    border: 5px solid black;
+    border-radius: 15px;
+    cursor: pointer;
+    color: black;
+    background-color: aliceblue;
+}
+
+.controls button:hover {
+    background-color: rgb(200, 200, 200);
+    transition: background-color 1s;
 }
